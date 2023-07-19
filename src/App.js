@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import * as XLXS from "xlsx";
+import { VscCloudUpload } from "react-icons/vsc";
+import { FaFilter } from "react-icons/fa";
 
 const App = () => {
   const [excelData, setExcelData] = useState([]);
@@ -17,10 +19,30 @@ const App = () => {
     };
   };
   return (
-    <div>
-      <h1>React XLS Application</h1>
-      <input type="file" accept=".xlsx" onChange={fileChange} />
-    </div>
+    <>
+      <nav className="nav-header">
+        <header id="heading">XLS reader</header>
+        <span id="about">About</span>
+        <span id="contact">Contact</span>
+      </nav>
+      <div className="search-container">
+        <input
+          id="search-input"
+          type="search"
+          placeholder="Search item......."
+        />
+        <label className="custom-file-upload">
+          <input
+            id="file-input"
+            type="file"
+            accept=".xlsx .xls"
+            onChange={fileChange}
+          />
+          <VscCloudUpload className="upload-icon" />
+          <span> Upload XLSX</span>
+        </label>
+      </div>
+    </>
   );
 };
 

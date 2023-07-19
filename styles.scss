@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: "Rubik", sans-serif;
+}
+
+.nav-header {
+  color: #303030;
+  font-size: 20px;
+  background-color: rgb(183, 183, 231);
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-around;
+  #heading {
+    flex: 1 0 60%;
+    padding-left: 30px;
+  }
+  #contact,
+  #about {
+    flex: 1 1 20%;
+  }
+  #contact:hover,
+  #about:hover {
+    color: #000;
+    cursor: pointer;
+  }
+}
+
+.search-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  #search-input {
+    border: 1px solid #b6b6b6;
+    padding: 6px;
+    width: 40%;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  input[type="file"] {
+    display: none;
+  }
+
+  .custom-file-upload {
+    border: 1px solid #b6b6b6;
+    border-radius: 6px;
+    display: flex;
+    padding: 6px 12px;
+    cursor: pointer;
+    align-items: center;
+    column-gap: 4px;
+    &:hover {
+      background-color: #c5c5c5;
+      transition: 0.4s ease-in-out;
+    }
+    .upload-icon {
+      font-size: x-large;
+    }
+  }
+  .filter-btn {
+  }
+}
