@@ -6,7 +6,7 @@ React App to read XLS file and filter out records
 
 ## npm install xlsx
 
-xlsx javascript to read an xls or xlsx file.
+xlsx javascript library to read a .xls or .xlsx file.
 
 1. FileReader class from HTML5 File API instance contains methods to read a content of uploaded file.
 2. FileReader.readAsBinaryString() will read file contents and result will contain the raw binary data from file as a string.
