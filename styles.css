@@ -10,7 +10,7 @@
   color: #303030;
   font-size: 20px;
   background-color: rgb(183, 183, 231);
-  padding: 10px;
+  padding: 14px;
   display: flex;
   flex-direction: row;
 }
@@ -48,6 +48,16 @@
 .search-container input[type=file] {
   display: none;
 }
+.search-container #search-by {
+  border: 1px solid #b6b6b6;
+  border-radius: 6px;
+}
+.search-container #sheet-number-input {
+  border: 1px solid #b6b6b6;
+  border-radius: 6px;
+  width: 5%;
+  padding: 6px;
+}
 .search-container .custom-file-upload {
   border: 1px solid #b6b6b6;
   border-radius: 6px;
@@ -65,6 +75,12 @@
 .search-container .custom-file-upload .upload-icon {
   font-size: x-large;
 }
+
+#file-name {
+  margin-top: 10px;
+  text-align: center;
+}
+
 .about-container,
 .contact-container {
   position: absolute;
