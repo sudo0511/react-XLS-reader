@@ -6,7 +6,7 @@ import Contact from "./components/Contact";
 
 const App = () => {
   return (
-    <>
+    <div id="xlsx-app">
       <nav className="nav-header">
         <Link id="heading" to="/">
           React XLS Reader
@@ -23,7 +23,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
-    </>
+    </div>
   );
 };
 

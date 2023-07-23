@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import * as XLXS from "xlsx";
-import { VscCloudUpload } from "react-icons/vsc";
-import { FaFilter } from "react-icons/fa";
+import { VscCloudUpload, VscCopy, VscChromeClose } from "react-icons/vsc";
+import { SlClose } from "react-icons/sl";
+
+import Table from "./Table";
 
 const Home = () => {
   const [excelData, setExcelData] = useState({
@@ -24,7 +26,9 @@ const Home = () => {
       });
     };
   };
-  console.log("State", excelData);
+  let columnNames =
+    excelData.data.length > 0 ? Object.keys(excelData.data[0]) : [];
+  // console.log("State", excelData);
   return (
     <>
       <div className="search-container">
@@ -37,9 +41,14 @@ const Home = () => {
           <option value="Search Criteria" disabled>
             Search Criteria
           </option>
-          <option value="option-1">Option 1</option>
-          <option value="option-2">Option 2</option>
-          <option value="option-3">Option 3</option>
+          {columnNames.length > 0 &&
+            columnNames.map((col, i) => {
+              return (
+                <option key={col + "-" + i} value={col}>
+                  {col}
+                </option>
+              );
+            })}
         </select>
         <input id="sheet-number-input" type="number" placeholder="Sheet Num" />
         <label className="custom-file-upload">
@@ -53,7 +62,35 @@ const Home = () => {
           <span> Upload XLSX</span>
         </label>
       </div>
-      <h4 id="file-name">{excelData?.name}</h4>
+
+      {excelData?.name && (
+        <>
+          <div className="file-handle-wrapper">
+            <div id="file-name">
+              <span>{excelData?.name} </span>
+              <button id="btn-file-close" title="Close File">
+                <SlClose
+                  style={{
+                    position: "relative",
+                    top: "2px",
+                  }}
+                />
+              </button>
+              <button id="btn-copy-items" title="Copy Items">
+                <VscCopy
+                  style={{
+                    position: "relative",
+                    top: "2px",
+                  }}
+                />
+              </button>
+            </div>
+          </div>
+          <div className="table-wrapper">
+            <Table tableData={excelData.data} columnNames={columnNames} />
+          </div>
+        </>
+      )}
     </>
   );
 };

@@ -7,7 +7,12 @@
   font-family: "Rubik", sans-serif;
 }
 
+body {
+  scroll-behavior: smooth;
+}
+
 .nav-header {
+  width: 100%;
   color: #303030;
   font-size: 20px;
   background-color: rgb(183, 183, 231);
@@ -78,10 +83,6 @@
     }
   }
 }
-#file-name {
-  margin-top: 10px;
-  text-align: center;
-}
 
 .about-container,
 .contact-container {
@@ -96,4 +97,58 @@
   border-radius: 8px;
   border: 1px solid #eaeaea;
   box-shadow: 0 0.5rem 1.2rem rgb(183, 183, 231);
+}
+
+.table-wrapper {
+  width: 95%;
+  overflow: scroll;
+  height: 470px;
+  // direction: rtl;
+  margin: 0px auto;
+}
+
+.xlsx-table {
+  border-collapse: collapse;
+  width: 100%;
+  th {
+    font-weight: 600;
+    background-color: rgb(183, 183, 231);
+  }
+  th,
+  td {
+    border: 2px solid #888888;
+    padding: 2px;
+    text-align: left;
+  }
+}
+
+.file-handle-wrapper {
+  display: flex;
+  margin: 10px auto 0px;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 10px;
+  width: 95%;
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  #file-name {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 2px;
+    display: flex;
+    column-gap: 5px;
+    color: rgb(7, 34, 75);
+    align-items: center;
+    box-shadow: 0 0.5rem 1.2rem rgb(219, 219, 219) inset;
+  }
+  #btn-copy-items {
+    align-self: flex-end;
+  }
+  #btn-file-close,
+  #btn-copy-items {
+    font-size: large;
+  }
 }
