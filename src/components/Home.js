@@ -10,6 +10,7 @@ const Home = () => {
     name: "",
     data: [],
   });
+  //read uploaded excel file
   const fileChange = (e) => {
     const xlsxName = e.target.files[0].name;
     const fr = new FileReader();
@@ -25,6 +26,13 @@ const Home = () => {
         data: [...prodMstData],
       });
     };
+  };
+  //to handle file close
+  const fileCloseHandler = (e) => {
+    setExcelData({
+      name: "",
+      data: [],
+    });
   };
   let columnNames =
     excelData.data.length > 0 ? Object.keys(excelData.data[0]) : [];
@@ -68,7 +76,11 @@ const Home = () => {
           <div className="file-handle-wrapper">
             <div id="file-name">
               <span>{excelData?.name} </span>
-              <button id="btn-file-close" title="Close File">
+              <button
+                id="btn-file-close"
+                title="Close File"
+                onClick={fileCloseHandler}
+              >
                 <SlClose
                   style={{
                     position: "relative",
