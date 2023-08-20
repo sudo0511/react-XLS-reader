@@ -12,6 +12,8 @@ const Home = () => {
   });
   const fileRef = useRef(null);
   const [searchKey, setSearchKey] = useState("");
+  const [filterData, setFilterData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   //read uploaded excel file
   const fileChange = (e) => {
     const xlsxName = e.target.files[0].name;
@@ -29,22 +31,7 @@ const Home = () => {
       });
     };
   };
-  const handleSearchBy = (e) => {
-    setSearchKey(e.target.value);
-  };
 
-  const filterRecords = (e) => {
-    const filteredData = excelData.data.filter((ele) => {
-      return `${ele[searchKey]}+''`.includes(e.target.value);
-    });
-    setExcelData((prev) => {
-      return {
-        ...prev,
-        data: [...filteredData],
-      };
-    });
-    console.log(filteredData);
-  };
   //to handle file close
   const fileCloseHandler = (e) => {
     fileRef.current.value = null;
@@ -54,11 +41,22 @@ const Home = () => {
     });
     setSearchKey("");
   };
+
   let columnNames =
     excelData.data.length > 0 ? Object.keys(excelData.data[0]) : [];
+
   useEffect(() => {
-    console.log("RENDERED", excelData, columnNames, fileRef);
-  });
+    if (searchQuery !== "") {
+      let filteredData = [...excelData.data];
+      filteredData = filteredData.filter((ele) => {
+        return `${ele[searchKey]}+''`.toLowerCase().includes(searchQuery);
+      });
+      setFilterData([...filteredData]);
+    } else {
+      setFilterData([...excelData.data]);
+    }
+  }, [searchQuery, excelData]);
+
   return (
     <>
       <div className="search-container">
@@ -66,12 +64,12 @@ const Home = () => {
           id="search-input"
           type="search"
           placeholder="Search item......."
-          onChange={filterRecords}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
         <select
           id="search-by"
           defaultValue={"Search Criteria"}
-          onChange={handleSearchBy}
+          onChange={(e) => setSearchKey(e.target.value)}
         >
           <option value="Search Criteria" disabled>
             Search Criteria
@@ -127,7 +125,7 @@ const Home = () => {
             </div>
           </div>
           <div className="table-wrapper">
-            <Table tableData={excelData.data} columnNames={columnNames} />
+            <Table tableData={filterData} columnNames={columnNames} />
           </div>
         </>
       )}
