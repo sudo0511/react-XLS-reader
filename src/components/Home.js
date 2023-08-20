@@ -14,6 +14,7 @@ const Home = () => {
   const [searchKey, setSearchKey] = useState("");
   const [filterData, setFilterData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+
   //read uploaded excel file
   const fileChange = (e) => {
     const xlsxName = e.target.files[0].name;
@@ -25,9 +26,15 @@ const Home = () => {
       const prodMST = workbook.SheetNames[0];
       const prodMstSheet = workbook.Sheets[prodMST];
       const prodMstData = XLXS.utils.sheet_to_json(prodMstSheet);
+      const modData = prodMstData.map((ele) => {
+        return {
+          Check: false,
+          ...ele,
+        };
+      });
       setExcelData({
         name: xlsxName,
-        data: [...prodMstData],
+        data: [...modData],
       });
     };
   };
@@ -87,9 +94,11 @@ const Home = () => {
           {columnNames.length > 0 &&
             columnNames.map((col, i) => {
               return (
-                <option key={col + "-" + i} value={col}>
-                  {col}
-                </option>
+                i !== 0 && (
+                  <option key={col + "-" + i} value={col}>
+                    {col}
+                  </option>
+                )
               );
             })}
         </select>

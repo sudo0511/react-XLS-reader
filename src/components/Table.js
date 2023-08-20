@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 
 const Table = ({ tableData, columnNames }) => {
+  const rowRef = useRef(null);
+  const [checkedVals, setCheckedVals] = useState([]);
   return (
     <table className="xlsx-table">
       <thead>
         <tr>
-          {/* <th>Check</th> */}
           {columnNames.map((col, i) => (
             <th key={col + "-" + i}>{col}</th>
           ))}
@@ -15,18 +16,16 @@ const Table = ({ tableData, columnNames }) => {
         {tableData.map((ele, i) => {
           const rowVals = Object.values(ele);
           return (
-            <tr key={i}>
-              {/* <td>
-                  <input
-                    type="checkbox"
-                    onChange={(e) => {
-                      console.log(e.target);
-                    }}
-                  />
-                </td> */}
-              {rowVals.map((r, i) => (
-                <td key={r + "-" + i}>{r}</td>
-              ))}
+            <tr key={i} ref={rowRef}>
+              {rowVals.map((r, i) =>
+                i === 0 ? (
+                  <td key={r + "-" + i}>
+                    <input type="checkbox" />
+                  </td>
+                ) : (
+                  <td key={r + "-" + i}>{r}</td>
+                )
+              )}
             </tr>
           );
         })}
