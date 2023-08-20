@@ -50,6 +50,10 @@ body {
   border-radius: 6px;
   font-size: 1rem;
 }
+.search-container #search-input:disabled {
+  background-color: #bebebe;
+  cursor: not-allowed;
+}
 .search-container input[type=file] {
   display: none;
 }

@@ -50,7 +50,13 @@ body {
     width: 40%;
     border-radius: 6px;
     font-size: 1rem;
+
+    &:disabled {
+      background-color: #bebebe;
+      cursor: not-allowed;
+    }
   }
+
   input[type="file"] {
     display: none;
   }

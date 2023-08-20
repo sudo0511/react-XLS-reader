@@ -31,6 +31,18 @@ const Home = () => {
       });
     };
   };
+  // filter records
+  const handleSearch = (e) => {
+    if (searchQuery !== "") {
+      let filteredData = [...excelData.data];
+      filteredData = filteredData.filter((ele) => {
+        return `${ele[searchKey]}+''`.toLowerCase().includes(searchQuery);
+      });
+      setFilterData([...filteredData]);
+    } else {
+      setFilterData([...excelData.data]);
+    }
+  };
 
   //to handle file close
   const fileCloseHandler = (e) => {
@@ -46,15 +58,11 @@ const Home = () => {
     excelData.data.length > 0 ? Object.keys(excelData.data[0]) : [];
 
   useEffect(() => {
-    if (searchQuery !== "") {
-      let filteredData = [...excelData.data];
-      filteredData = filteredData.filter((ele) => {
-        return `${ele[searchKey]}+''`.toLowerCase().includes(searchQuery);
-      });
-      setFilterData([...filteredData]);
-    } else {
-      setFilterData([...excelData.data]);
-    }
+    const timerId = setTimeout(() => {
+      handleSearch();
+    }, 500);
+
+    return () => clearTimeout(timerId);
   }, [searchQuery, excelData]);
 
   return (
@@ -64,7 +72,9 @@ const Home = () => {
           id="search-input"
           type="search"
           placeholder="Search item......."
+          title="Select criteria and search"
           onChange={(e) => setSearchQuery(e.target.value)}
+          disabled={searchKey != "" ? false : true}
         />
         <select
           id="search-by"
