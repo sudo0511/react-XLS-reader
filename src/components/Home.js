@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import * as XLXS from "xlsx";
 import { VscCloudUpload, VscCopy, VscChromeClose } from "react-icons/vsc";
 import { SlClose } from "react-icons/sl";
-
 import Table from "./Table";
 
 const Home = () => {
@@ -59,6 +58,21 @@ const Home = () => {
       data: [],
     });
     setSearchKey("");
+  };
+
+  //to handle checked rows
+  const handleCheck = (ele, index) => {
+    const tempArr = excelData.data.map((obj) => {
+      return obj["P-CODE"] === ele["P-CODE"]
+        ? { ...obj, Check: !obj["Check"] }
+        : obj;
+    });
+    setExcelData((prev) => {
+      return {
+        ...prev,
+        data: [...tempArr],
+      };
+    });
   };
 
   let columnNames =
@@ -144,7 +158,11 @@ const Home = () => {
             </div>
           </div>
           <div className="table-wrapper">
-            <Table tableData={filterData} columnNames={columnNames} />
+            <Table
+              tableData={filterData}
+              columnNames={columnNames}
+              handleCheck={handleCheck}
+            />
           </div>
         </>
       )}
