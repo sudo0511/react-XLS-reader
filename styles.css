@@ -139,18 +139,20 @@ body {
 .file-handle-wrapper #file-name {
   font-size: 18px;
   font-weight: 600;
-  padding: 2px;
+  padding: 2px 12px;
   display: flex;
-  -moz-column-gap: 5px;
-       column-gap: 5px;
+  -moz-column-gap: 8px;
+       column-gap: 8px;
   color: rgb(7, 34, 75);
   align-items: center;
   box-shadow: 0 0.5rem 1.2rem rgb(219, 219, 219) inset;
 }
-.file-handle-wrapper #btn-copy-items {
+.file-handle-wrapper #btn-export-items {
   align-self: flex-end;
 }
-.file-handle-wrapper #btn-file-close,
-.file-handle-wrapper #btn-copy-items {
-  font-size: large;
+.file-handle-wrapper #btn-file-close {
+  font-size: 20px;
+}
+.file-handle-wrapper #btn-export-items {
+  font-size: 25px;
 }/*# sourceMappingURL=styles.css.map */

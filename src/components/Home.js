@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as XLXS from "xlsx";
-import { VscCloudUpload, VscCopy, VscChromeClose } from "react-icons/vsc";
+import { VscCloudUpload, VscCloudDownload } from "react-icons/vsc";
 import { SlClose } from "react-icons/sl";
 import Table from "./Table";
 import { nanoid } from "nanoid";
+import FileSaver from "file-saver";
 
 const Home = () => {
   const [excelData, setExcelData] = useState({
@@ -14,9 +15,10 @@ const Home = () => {
   const [searchKey, setSearchKey] = useState("");
   const [filterData, setFilterData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [checkedVals, setCheckedVals] = useState([]);
 
   //read uploaded excel file
-  const fileChange = (e) => {
+  const fileImport = (e) => {
     const xlsxName = e.target.files[0].name;
     const fr = new FileReader();
     fr.readAsBinaryString(e.target.files[0]);
@@ -40,6 +42,20 @@ const Home = () => {
       });
     };
   };
+
+  //export to excel with checked values
+  const fileExport = (e) => {
+    console.log(checkedVals);
+    const fileType =
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    const fileExtension = ".xlsx";
+    const ws = XLXS.utils.json_to_sheet(checkedVals);
+    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    const excelBuffer = XLXS.write(wb, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, "BookX" + fileExtension);
+  };
+
   // filter records
   const handleSearch = (e) => {
     if (searchQuery !== "") {
@@ -77,6 +93,16 @@ const Home = () => {
         data: [...tempArr],
       };
     });
+    if (!ele["Check"]) {
+      setCheckedVals((prev) => [...prev, ele]);
+    } else {
+      if (checkedVals.length > 0) {
+        const tempVals = checkedVals.filter((o) => {
+          return !(o[Object.getOwnPropertySymbols(o)[0]] === checkedReacordId);
+        });
+        setCheckedVals([...tempVals]);
+      }
+    }
   };
 
   let columnNames =
@@ -126,7 +152,7 @@ const Home = () => {
             id="file-input"
             type="file"
             accept=".xlsx"
-            onChange={fileChange}
+            onChange={fileImport}
             ref={fileRef}
           />
           <VscCloudUpload className="upload-icon" />
@@ -151,8 +177,12 @@ const Home = () => {
                   }}
                 />
               </button>
-              <button id="btn-copy-items" title="Copy Items">
-                <VscCopy
+              <button
+                id="btn-export-items"
+                title="Export Selected Items"
+                onClick={fileExport}
+              >
+                <VscCloudDownload
                   style={{
                     position: "relative",
                     top: "2px",

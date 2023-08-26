@@ -1,15 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const Table = ({ tableData, columnNames, handleCheck }) => {
-  const rowRef = useRef(null);
-  const [checkedVals, setCheckedVals] = useState([]);
-
-  useEffect(() => {
-    console.log(tableData);
-  }, [tableData]);
-
   return (
-    <table className="xlsx-table" ref={rowRef}>
+    <table className="xlsx-table">
       <thead>
         <tr>
           {columnNames.map((col, i) => (
