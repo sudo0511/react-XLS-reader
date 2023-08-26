@@ -3,6 +3,7 @@ import * as XLXS from "xlsx";
 import { VscCloudUpload, VscCopy, VscChromeClose } from "react-icons/vsc";
 import { SlClose } from "react-icons/sl";
 import Table from "./Table";
+import { nanoid } from "nanoid";
 
 const Home = () => {
   const [excelData, setExcelData] = useState({
@@ -19,6 +20,7 @@ const Home = () => {
     const xlsxName = e.target.files[0].name;
     const fr = new FileReader();
     fr.readAsBinaryString(e.target.files[0]);
+    let id = Symbol("id");
     fr.onload = (event) => {
       const fileData = event.target.result;
       const workbook = XLXS.read(fileData, { type: "binary" });
@@ -29,6 +31,7 @@ const Home = () => {
         return {
           Check: false,
           ...ele,
+          [id]: nanoid(),
         };
       });
       setExcelData({
@@ -62,8 +65,9 @@ const Home = () => {
 
   //to handle checked rows
   const handleCheck = (ele, index) => {
+    const checkedReacordId = ele[Object.getOwnPropertySymbols(ele)[0]];
     const tempArr = excelData.data.map((obj) => {
-      return obj["P-CODE"] === ele["P-CODE"]
+      return obj[Object.getOwnPropertySymbols(obj)[0]] === checkedReacordId
         ? { ...obj, Check: !obj["Check"] }
         : obj;
     });

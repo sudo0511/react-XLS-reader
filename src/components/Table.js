@@ -5,8 +5,8 @@ const Table = ({ tableData, columnNames, handleCheck }) => {
   const [checkedVals, setCheckedVals] = useState([]);
 
   useEffect(() => {
-    // console.log(rowRef.current.rows);
-  }, []);
+    console.log(tableData);
+  }, [tableData]);
 
   return (
     <table className="xlsx-table" ref={rowRef}>
