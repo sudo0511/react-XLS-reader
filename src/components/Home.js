@@ -146,7 +146,7 @@ const Home = () => {
               );
             })}
         </select>
-        <input id="sheet-number-input" type="number" placeholder="Sheet Num" />
+        {/* <input id="sheet-number-input" type="number" placeholder="Sheet Num" /> */}
         <label className="custom-file-upload">
           <input
             id="file-input"
