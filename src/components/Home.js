@@ -61,7 +61,9 @@ const Home = () => {
     if (searchQuery !== "") {
       let filteredData = [...excelData.data];
       filteredData = filteredData.filter((ele) => {
-        return `${ele[searchKey]}+''`.toLowerCase().includes(searchQuery);
+        return `${ele[searchKey]}+''`
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
       });
       setFilterData([...filteredData]);
     } else {
@@ -76,6 +78,7 @@ const Home = () => {
       name: "",
       data: [],
     });
+    setSearchQuery("");
     setSearchKey("");
   };
 

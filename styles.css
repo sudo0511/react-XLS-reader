@@ -198,4 +198,17 @@ body {
 }
 .social-media-links .icon {
   font-size: xx-large;
+}
+
+.about-container h3 {
+  margin-bottom: 7px;
+}
+.about-container hr {
+  margin-bottom: 7px;
+}
+.about-container p {
+  margin-bottom: 5px;
+}
+.about-container .about-steps-list {
+  margin: 2px 30px;
 }/*# sourceMappingURL=styles.css.map */
